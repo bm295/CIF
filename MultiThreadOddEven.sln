@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.13
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiThreadOddEven", "MultiThreadOddEven\MultiThreadOddEven.csproj", "{2C5068CF-6BD8-4AA3-995A-3D28C556FCE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{F2162D6B-1DCE-4A13-A7E7-149DC05665A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2C5068CF-6BD8-4AA3-995A-3D28C556FCE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C5068CF-6BD8-4AA3-995A-3D28C556FCE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C5068CF-6BD8-4AA3-995A-3D28C556FCE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C5068CF-6BD8-4AA3-995A-3D28C556FCE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2162D6B-1DCE-4A13-A7E7-149DC05665A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2162D6B-1DCE-4A13-A7E7-149DC05665A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2162D6B-1DCE-4A13-A7E7-149DC05665A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2162D6B-1DCE-4A13-A7E7-149DC05665A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F096AFB5-AE99-4927-A371-0A03F9BC90E3}
 	EndGlobalSection
 EndGlobal
