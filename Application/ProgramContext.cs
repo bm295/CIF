@@ -10,13 +10,13 @@ internal class ProgramContext
     {
         var container = new Container(_ => {
             _.For<IProgram>().Use<OddEvenProgram>();
-            _.For<IProgram>().Use<TestProgram>();
+            _.For<IProgram>().Use<InlineMethodProgram>();
         });
 
         _programs = new List<IProgram>
         {
             container.GetInstance<OddEvenProgram>(),
-            container.GetInstance<TestProgram>()
+            container.GetInstance<InlineMethodProgram>()
         };
     }
 
