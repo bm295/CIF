@@ -1,41 +1,43 @@
-﻿using Application.Interface;
+using Application.Interface;
 
-namespace Application.Implementation
+namespace Application.Implementation;
+
+internal sealed class OddEvenProgram : IProgram
 {
-    internal class OddEvenProgram : IProgram
+    private readonly AutoResetEvent _oddTurn = new(false);
+    private readonly AutoResetEvent _evenTurn = new(false);
+
+    public void Run()
     {
-        readonly AutoResetEvent event1 = new(false);
-        readonly AutoResetEvent event2 = new(false);
+        var oddTask = Task.Run(PrintOddNumbers);
+        var evenTask = Task.Run(PrintEvenNumbers);
 
-        public void Run()
+        Task.WaitAll(oddTask, evenTask);
+    }
+
+    private void PrintOddNumbers()
+    {
+        int[] oddNumbers = [1, 3, 5, 7, 9, 11, 13, 15];
+
+        foreach (var value in oddNumbers)
         {
-            var t1 = Task.Factory.StartNew(() => PrintOddNumbers());
-            var t2 = Task.Factory.StartNew(() => PrintEvenNumbers());
+            Console.WriteLine(value);
+            _evenTurn.Set();
+            _oddTurn.WaitOne();
+        }
+    }
 
-            Task.WaitAny(t1, t2);
+    private void PrintEvenNumbers()
+    {
+        int[] evenNumbers = [2, 4, 6, 8, 10, 12, 14];
+
+        foreach (var value in evenNumbers)
+        {
+            _evenTurn.WaitOne();
+            Console.WriteLine(value);
+            _oddTurn.Set();
         }
 
-        private void PrintOddNumbers()
-        {
-            int[] arr = new int[] { 1, 3, 5, 7, 9, 11, 13, 15 };
-            foreach (var item in arr)
-            {
-                Console.WriteLine(item);
-                event2.Set();
-                event1.WaitOne();
-            }
-        }
-
-        private void PrintEvenNumbers()
-        {
-            int[] arr = new int[] { 2, 4, 6, 8, 10, 12, 14 };
-            foreach (var item in arr)
-            {
-                event2.WaitOne();
-                Console.WriteLine(item);
-                event1.Set();
-            }
-            event1.Set();
-        }
+        _oddTurn.Set();
     }
 }

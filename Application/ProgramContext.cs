@@ -1,24 +1,14 @@
-﻿using Application.Implementation;
+using Application.Implementation;
 using Application.Interface;
-using StructureMap;
 
-internal class ProgramContext
+internal sealed class ProgramContext
 {
-    private List<IProgram> _programs;
-
-    public ProgramContext()
-    {
-        var container = new Container(_ => {
-            _.For<IProgram>().Use<OddEvenProgram>();
-            _.For<IProgram>().Use<InlineMethodProgram>();
-        });
-
-        _programs = new List<IProgram>
-        {
-            container.GetInstance<OddEvenProgram>(),
-            container.GetInstance<InlineMethodProgram>()
-        };
-    }
+    private readonly IReadOnlyList<IProgram> _programs =
+    [
+        new OddEvenProgram(),
+        new InlineMethodProgram(),
+        new InKeywordProgram()
+    ];
 
     internal void ShowAllOptions()
     {
@@ -30,6 +20,12 @@ internal class ProgramContext
 
     internal void RunWith(int option)
     {
+        if (option < 0 || option >= _programs.Count)
+        {
+            Console.WriteLine("Option out of range.");
+            return;
+        }
+
         _programs[option].Run();
     }
 }
