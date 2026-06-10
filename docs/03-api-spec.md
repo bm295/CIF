@@ -23,7 +23,8 @@ Base path: `/api/v1/customers`
     "type": "NationalId",
     "number": "079123456789",
     "issuingCountryCode": "VN"
-  }
+  },
+  "actor": "system"
 }
 ```
 
@@ -65,6 +66,8 @@ Response:
 
 - `204 No Content`
 - `404 Not Found`
+
+Current endpoint accepts `actor` as a required query parameter for audit metadata (for example, `DELETE /api/v1/customers/{customerId}?actor=system`).
 
 ## 5) List/search customers
 
