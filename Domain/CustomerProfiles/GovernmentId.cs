@@ -12,7 +12,8 @@ public sealed record GovernmentId(
         GovernmentIdType type,
         string? number,
         string? issuingCountryCode,
-        DateOnly? expiryDate)
+        DateOnly? expiryDate,
+        DateOnly currentDate)
     {
         List<Error> errors = [];
 
@@ -26,7 +27,7 @@ public sealed record GovernmentId(
             errors.Add(new Error("InvalidCountryCode", "governmentId.issuingCountryCode", "Issuing country code must be ISO-3166 alpha-2."));
         }
 
-        if (expiryDate is not null && expiryDate < DateOnly.FromDateTime(DateTime.UtcNow.Date))
+        if (expiryDate is not null && expiryDate < currentDate)
         {
             errors.Add(new Error("Expired", "governmentId.expiryDate", "Government ID expiry date cannot be in the past."));
         }
