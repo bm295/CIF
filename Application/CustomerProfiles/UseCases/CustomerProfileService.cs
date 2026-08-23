@@ -13,7 +13,8 @@ public sealed class CustomerProfileService(
         UpsertCustomerProfileRequest request,
         CancellationToken cancellationToken = default)
     {
-        var materialized = MaterializeValueObjects(request);
+        var nowUtc = clock.UtcNow;
+        var materialized = MaterializeValueObjects(request, nowUtc);
         if (materialized.IsFailure)
         {
             return Result<CustomerProfileResponse>.Failure([.. materialized.Errors]);
@@ -30,7 +31,7 @@ public sealed class CustomerProfileService(
             address,
             governmentId,
             request.Actor,
-            clock.UtcNow);
+            nowUtc);
 
         if (profile.IsFailure)
         {
@@ -60,7 +61,8 @@ public sealed class CustomerProfileService(
             return Result<CustomerProfileResponse>.Failure(new Error("NotFound", "customerId", "Customer profile was not found."));
         }
 
-        var materialized = MaterializeValueObjects(request);
+        var nowUtc = clock.UtcNow;
+        var materialized = MaterializeValueObjects(request, nowUtc);
         if (materialized.IsFailure)
         {
             return Result<CustomerProfileResponse>.Failure([.. materialized.Errors]);
@@ -77,7 +79,7 @@ public sealed class CustomerProfileService(
             address,
             governmentId,
             request.Actor,
-            clock.UtcNow);
+            nowUtc);
 
         if (update.IsFailure)
         {
@@ -118,7 +120,9 @@ public sealed class CustomerProfileService(
             profiles.Count);
     }
 
-    private static Result<(Address Address, GovernmentId GovernmentId)> MaterializeValueObjects(UpsertCustomerProfileRequest request)
+    private static Result<(Address Address, GovernmentId GovernmentId)> MaterializeValueObjects(
+        UpsertCustomerProfileRequest request,
+        DateTimeOffset nowUtc)
     {
         List<Error> errors = [];
 
@@ -155,7 +159,8 @@ public sealed class CustomerProfileService(
                 request.GovernmentId.Type,
                 request.GovernmentId.Number,
                 request.GovernmentId.IssuingCountryCode,
-                request.GovernmentId.ExpiryDate);
+                request.GovernmentId.ExpiryDate,
+                DateOnly.FromDateTime(nowUtc.UtcDateTime));
 
             if (governmentId.IsFailure)
             {
