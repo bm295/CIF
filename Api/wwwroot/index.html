@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CIF Offer Advisor</title>
+<style>body{font:16px system-ui;max-width:720px;margin:40px auto;padding:0 16px;color:#17202a}label{display:block;margin:12px 0 4px}input,button{padding:9px;font:inherit}input{width:100%;box-sizing:border-box}button{margin-top:18px;cursor:pointer}.card{background:#f2f6f8;padding:16px;border-radius:8px;margin-top:20px}.error{color:#a21d1d}</style></head>
+<body><h1>Đề xuất gói dịch vụ</h1><p>Chọn một gói cơ bản và một tiện ích có tổng phí cao nhất nhưng không vượt ngân sách.</p>
+<label>Ngân sách (VND)<input id="budget" type="number" min="0" value="250000"></label>
+<button id="recommend">Tìm gói phù hợp</button><div id="result"></div>
+<script>
+const plans=[{id:'basic',name:'Cơ bản',price:100000},{id:'premium',name:'Nâng cao',price:200000},{id:'business',name:'Doanh nghiệp',price:350000}];
+const addOns=[{id:'support',name:'Hỗ trợ ưu tiên',price:50000},{id:'report',name:'Báo cáo nâng cao',price:75000},{id:'monitoring',name:'Theo dõi KYC',price:125000}];
+document.querySelector('#recommend').onclick=async()=>{const result=document.querySelector('#result');result.textContent='Đang tính...';const response=await fetch('/api/v1/offers/recommendation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({budget:Number(document.querySelector('#budget').value),basePlans:plans,addOns})});const data=await response.json();result.innerHTML=response.ok?`<div class="card"><strong>${data.basePlan.name} + ${data.addOn.name}</strong><br>Tổng: ${data.total.toLocaleString('vi-VN')} VND<br>Còn lại: ${data.remainingBudget.toLocaleString('vi-VN')} VND</div>`:`<p class="error">${data.error}</p>`};
+</script></body></html>
