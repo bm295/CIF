@@ -14,5 +14,4 @@ jobs:
           python-version: '3.12'
       - run: pip install -r experiments/offer_acceptance/requirements.txt
       - run: python -m unittest discover -s experiments/offer_acceptance -p 'test_*.py'
-      - run: python experiments/offer_acceptance/train.py
-      - run: git diff --exit-code -- Infrastructure/Offers/Models/offer-acceptance.json experiments/offer_acceptance/results/metrics.json
+      - run: python experiments/offer_acceptance/verify_reproducibility.py
