@@ -79,4 +79,4 @@ dotnet test CIF.sln
 ```
 
 CI chạy test .NET, kiểm tra split và xác suất xuất từ sklearn, huấn luyện lại và
-kiểm tra artifact/metrics tái lập. Nhãn và dữ liệu giả lập không được ghi vào hồ sơ CIF.
+kiểm tra artifact/metrics tái lập (sai số tương đối 1e-10, tuyệt đối 1e-12 để chấp nhận sai số làm tròn giữa các nền tảng). Nhãn và dữ liệu giả lập không được ghi vào hồ sơ CIF.
