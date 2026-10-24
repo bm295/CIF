@@ -1,0 +1,18 @@
+name: Verify
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - run: dotnet test CIF.sln
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r experiments/offer_acceptance/requirements.txt
+      - run: python -m unittest discover -s experiments/offer_acceptance -p 'test_*.py'
+      - run: python experiments/offer_acceptance/train.py
+      - run: git diff --exit-code -- Infrastructure/Offers/Models/offer-acceptance.json experiments/offer_acceptance/results/metrics.json

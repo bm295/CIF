@@ -73,3 +73,11 @@ curl -X POST http://localhost:5000/api/v1/customers \
 - Add unit, integration, and contract tests.
 - Add audit log persistence for profile changes.
 - Harden privacy controls for masked search results and safe logging.
+
+
+## Supervised offer acceptance learning lab
+
+See [the Vietnamese learning guide](docs/features/02-supervised-offer-acceptance.md)
+for synthetic labelled data, chronological train/validation/test splits, logistic/tree
+experiments, an overfitting plot, and opt-in model scoring in the offer API.
+The bundled model is educational and trained only on synthetic data.
