@@ -34,7 +34,7 @@ public sealed class ProjectDependencyTests
     private static string FindRepositoryRoot()
     {
         var directory = new DirectoryInfo(AppContext.BaseDirectory);
-        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "MultiThreadOddEven.sln")))
+        while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "CIF.sln")))
         {
             directory = directory.Parent;
         }
@@ -42,3 +42,4 @@ public sealed class ProjectDependencyTests
         return directory?.FullName ?? throw new DirectoryNotFoundException("Could not locate the repository root.");
     }
 }
+
