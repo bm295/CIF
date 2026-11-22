@@ -4,9 +4,9 @@ An opt-in, read-only educational assistant for general CIF/Profile and KYC quest
 
 ## Configuration
 
-Set environment variables `LLM_API_KEY` and `LLM_MODEL`; optionally set `LLM_BASE_URL` (defaults to `https://api.openai.com/v1/`). The API key must be stored in a secret manager, never committed.
+Set `LLM_ASSISTANT_ENABLED=true` and environment variables `LLM_API_KEY` and `LLM_MODEL`; optionally set `LLM_BASE_URL` (defaults to `https://api.openai.com/v1/`). The API key must be stored in a secret manager, never committed.
 
-The endpoint is only registered when both key and model are configured.
+The endpoint is disabled by default and only registered when explicitly enabled. Enabling without a key or model fails startup.
 
 ## Example
 
